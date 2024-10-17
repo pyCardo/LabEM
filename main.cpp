@@ -1,8 +1,6 @@
 #include "particle.hpp"
 #include "resonanceType.hpp"
 
-#include <array>
-
 int main()
 {
   ParticleType p("giorgio", 5, 1);

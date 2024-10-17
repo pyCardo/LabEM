@@ -1,6 +1,7 @@
 #ifndef PARTICLE_TYPE_HPP
 #define PARTICLE_TYPE_HPP
 
+#include <array>
 #include <iostream>
 #include <string>
 

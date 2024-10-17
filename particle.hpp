@@ -1,27 +1,34 @@
 #ifndef PARTICLE_HPP
 #define PARTICLE_HPP
 
-#include "particleType.hpp"
+#include "resonanceType.hpp"
 
 struct Momentum
 {
-  double x;
-  double y;
-  double z;
+  double x{0};
+  double y{0};
+  double z{0};
 };
 
 class Particle
 {
  public:
-  Particle(int index, Momentum p);
+  Particle() = default;
+  Particle(std::string, Momentum);
+  int GetIndex()
+  {
+    return fIndex;
+  };
+  void AddParticleType(ResonanceType);
 
  private:
-  static const int fMaxNumParticles{10};
   static int fNParticleType;
-  static ParticleType* fParticleType[fMaxNumParticles];
+  static std::array<ParticleType*, 7> fParticleType;
 
   int fIndex;
-  Momentum fP{0, 0, 0};
+  Momentum fP{};
+
+  int FindParticle(std::string);
 };
 
 #endif
