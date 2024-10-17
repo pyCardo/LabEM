@@ -1,8 +1,8 @@
-#ifndef RESONANCE_TYPE
-#define RESONANCE_TYPE
+#ifndef RESONANCE_TYPE_HPP
+#define RESONANCE_TYPE_HPP
 #include "particleType.hpp"
 
-class ResonanceType : ParticleType public
+class ResonanceType : public ParticleType
 {
  public:
   double GetWidth() const
