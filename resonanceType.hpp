@@ -9,7 +9,7 @@ class ResonanceType : public ParticleType
   {
     return fWidth;
   }
-  void Print() const;
+  void Print() const override;
   ResonanceType(std::string, double, int, double);
 
  private:

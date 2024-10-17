@@ -5,23 +5,23 @@
 
 struct Momentum
 {
-    double x;
-    double y;
-    double z;
+  double x;
+  double y;
+  double z;
 };
 
 class Particle
 {
-public:
-    Particle(int index, Momentum p);
+ public:
+  Particle(int index, Momentum p);
 
-private:
-    static const int fMaxNumParticles{10};
-    static int fNParticleType;
-    static ParticleType *fParticleType[fMaxNumParticles];
+ private:
+  static const int fMaxNumParticles{10};
+  static int fNParticleType;
+  static ParticleType* fParticleType[fMaxNumParticles];
 
-    int fIndex;
-    Momentum fP{0, 0, 0};
+  int fIndex;
+  Momentum fP{0, 0, 0};
 };
 
 #endif
