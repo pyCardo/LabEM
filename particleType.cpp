@@ -1,7 +1,5 @@
 #include "particleType.hpp"
 
-#include <iostream>
-
 ParticleType::ParticleType(std::string name, double mass, int charge) : fName{name}, fMass{mass}, fCharge{charge}
 {
 }

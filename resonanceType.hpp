@@ -10,7 +10,7 @@ class ResonanceType : public ParticleType
     return fWidth;
   }
   void Print() const;
-  ResonanceType(std::string*, double, int, double);
+  ResonanceType(std::string, double, int, double);
 
  private:
   const double fWidth;

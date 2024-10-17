@@ -3,10 +3,10 @@
 void ResonanceType::Print() const
 {
   ParticleType::Print();
-  std::cout << "Width of the particle: " << fWidth << std::endl;
+  std::cout << "Width: " << fWidth << std::endl;
 }
 
-ResonanceType::ResonanceType(std::string* Name, double Mass, int Charge,
-                             double Width)
-    : ParticleType(*Name, Mass, Charge)
-    , fWidth{Width} {};
+ResonanceType::ResonanceType(std::string name, double mass, int charge,
+                             double width)
+    : ParticleType(name, mass, charge)
+    , fWidth{width} {};
