@@ -14,20 +14,23 @@ class ParticleType
   const std::string& GetName() const
   {
     return fName;
-  };
+  }
+
   double GetMass() const
   {
     return fMass;
-  };
+  }
+
   int GetCharge() const
   {
     return fCharge;
-  };
+  }
+
   virtual void Print() const;
   virtual double GetWidth() const
   {
     return 0;
-  };
+  }
 
  private:
   const std::string fName;
