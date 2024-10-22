@@ -15,9 +15,17 @@ class Particle
  public:
   Particle() = default;
   Particle(std::string, Momentum);
-  int GetIndex()
+  int GetIndex() const
   {
     return fIndex;
+  }
+  void SetType(int index)
+  {
+    fIndex = index;
+  }
+  void SetType(std::string typeName)
+  {
+    fIndex = FindParticle(typeName);
   };
   void AddParticleType(ResonanceType);
 

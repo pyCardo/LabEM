@@ -29,7 +29,7 @@ void Particle::AddParticleType(ResonanceType type)
       std::cout << "Particle already exists." << std::endl;
       return;
     } else if ((fParticleType[i]->GetName()).empty()) {
-      *(fParticleType[i]) = type;
+      fParticleType[i] = &type;
       return;
     }
   }
