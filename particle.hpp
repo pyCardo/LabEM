@@ -38,7 +38,7 @@ class Particle
 
   double GetEnergy() const;
 
-  double InvariantMass(const Particle& particle) const;
+  double InvMass(const Particle& particle) const;
 
   void SetType(int index)
   {

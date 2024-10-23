@@ -58,7 +58,7 @@ double Particle::GetEnergy() const
   return sqrt(GetMass() + fP.Norm2());
 }
 
-double Particle::InvariantMass(const Particle& particle) const
+double Particle::InvMass(const Particle& particle) const
 {
   const double sumEnergy{GetEnergy() + particle.GetEnergy()};
   const Momentum sumP{fP.x + particle.fP.x, fP.y + particle.fP.y, fP.z + particle.fP.z};
