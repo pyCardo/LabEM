@@ -68,6 +68,10 @@ class Particle
 
   void PrintParticleData() const;
 
+  int Decay2Body(Particle& dau1, Particle& dau2) const;
+
+  void Boost(Momentum b);
+
   // static functions
   static void AddParticleType(ResonanceType);
 
