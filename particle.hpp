@@ -17,10 +17,20 @@ struct Momentum
 
 class Particle
 {
+ private:
+  static int fNParticleTypes;                         // number of types
+  static std::array<ParticleType*, 7> fParticleTypes; // array of types
+
+  int fIndex;
+  Momentum fP{};
+
+  int FindParticle(std::string);
+
  public:
   Particle() = default;
   Particle(std::string, Momentum);
 
+  // getters
   int GetIndex() const
   {
     return fIndex;
@@ -38,8 +48,7 @@ class Particle
 
   double GetEnergy() const;
 
-  double InvMass(const Particle& particle) const;
-
+  // setters
   void SetType(int index)
   {
     fIndex = index;
@@ -55,20 +64,14 @@ class Particle
     fP = p;
   }
 
+  double InvMass(const Particle& particle) const;
+
   void PrintParticleData() const;
 
+  // static functions
   static void AddParticleType(ResonanceType);
 
   static void PrintParticleTypes();
-
- private:
-  static int fNParticleTypes;
-  static std::array<ParticleType*, 7> fParticleTypes;
-
-  int fIndex;
-  Momentum fP{};
-
-  int FindParticle(std::string);
 };
 
 #endif

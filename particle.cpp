@@ -55,7 +55,7 @@ void Particle::PrintParticleData() const
 
 double Particle::GetEnergy() const
 {
-  return sqrt(GetMass() + fP.Norm2());
+  return std::sqrt(std::pow(GetMass(), 2) + fP.Norm2());
 }
 
 double Particle::InvMass(const Particle& particle) const
@@ -64,5 +64,5 @@ double Particle::InvMass(const Particle& particle) const
   const Momentum sumP{fP.x + particle.fP.x, fP.y + particle.fP.y,
                       fP.z + particle.fP.z};
 
-  return std::sqrt(sumEnergy * sumEnergy - sumP.Norm2());
+  return std::sqrt(std::pow(sumEnergy, 2) - sumP.Norm2());
 }

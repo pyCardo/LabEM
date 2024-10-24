@@ -5,6 +5,9 @@
 
 class ResonanceType : public ParticleType
 {
+ private:
+  const double fWidth;
+
  public:
   ResonanceType(std::string, double, int, double);
 
@@ -14,8 +17,5 @@ class ResonanceType : public ParticleType
   }
 
   void Print() const;
-
- private:
-  const double fWidth;
 };
 #endif

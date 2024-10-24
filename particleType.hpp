@@ -7,6 +7,12 @@
 
 class ParticleType
 {
+ private:
+  // attributes
+  const std::string fName;
+  const double fMass;
+  const int fCharge;
+
  public:
   // constructor
   ParticleType(std::string name, double mass, int charge);
@@ -35,12 +41,6 @@ class ParticleType
 
   // output
   virtual void Print() const;
-
- private:
-  // attributes
-  const std::string fName;
-  const double fMass;
-  const int fCharge;
 };
 
 #endif
