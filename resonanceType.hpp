@@ -7,13 +7,13 @@ class ResonanceType : public ParticleType
 {
  public:
   ResonanceType(std::string, double, int, double);
-  
+
   double GetWidth() const
   {
     return fWidth;
   }
 
-  void Print() const override;
+  void Print() const;
 
  private:
   const double fWidth;

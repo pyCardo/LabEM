@@ -3,7 +3,7 @@
 #include <math.h>
 
 int Particle::fNParticleTypes = 0;
-// std::array<ParticleType*, 7> Particle::fParticleTypes;
+std::array<ParticleType*, 7> Particle::fParticleTypes;
 
 Particle::Particle(std::string name, Momentum p)
     : fP{p}
@@ -61,7 +61,8 @@ double Particle::GetEnergy() const
 double Particle::InvMass(const Particle& particle) const
 {
   const double sumEnergy{GetEnergy() + particle.GetEnergy()};
-  const Momentum sumP{fP.x + particle.fP.x, fP.y + particle.fP.y, fP.z + particle.fP.z};
+  const Momentum sumP{fP.x + particle.fP.x, fP.y + particle.fP.y,
+                      fP.z + particle.fP.z};
 
   return std::sqrt(sumEnergy * sumEnergy - sumP.Norm2());
 }
