@@ -1,24 +1,15 @@
 #include "particle.hpp"
-#include "resonanceType.hpp"
 
 int main()
 {
-  ParticleType p("giorgio", 5, 1);
-  ResonanceType r("riccardo", 7, 2, 4);
+  Particle::AddParticleType(ParticleType("pi+", 0.13957, 1));
+	Particle::AddParticleType(ParticleType("pi-", 0.13957, -1));
+	Particle::AddParticleType(ParticleType("K+", 0.49367, 1));
+	Particle::AddParticleType(ParticleType("K-", 0.49367, -1));
+	Particle::AddParticleType(ParticleType("p+", 0.93827, 1));
+	Particle::AddParticleType(ParticleType("p-", 0.93827, -1));
+	Particle::AddParticleType(ResonanceType("K*", 0.89166, 0, 0.05));
 
-  std::cout << "Charge: " << p.GetCharge() << std::endl;
-  p.Print();
-
-  std::cout << "Charge: " << r.GetCharge() << std::endl;
-  r.Print();
-
-  std::array<ParticleType*, 2> container;
-  container[0] = &p;
-  container[1] = &r;
-
-  for (ParticleType* i : container) {
-    i->Print();
-  }
-
-  return 0;
+  Particle::PrintParticleTypes();
+  return 9;
 }

@@ -19,7 +19,7 @@ class ParticleType
   // virtual ~ParticleType() = default;
 
   // getters
-  const std::string& GetName() const
+  const std::string GetName() const
   {
     return fName;
   }

@@ -23,25 +23,36 @@ int Particle::FindParticle(std::string name)
   return -1;
 }
 
-void Particle::AddParticleType(ResonanceType type)
+void Particle::AddParticleType(ParticleType type)
 {
-  for (int i = 0; i < fParticleTypes.size(); i++) {
+  if (fNParticleTypes == 7) {
+    std::cout << "No space left for a new particle." << std::endl;
+    return;
+  }
+  for (int i = 0; i < fNParticleTypes; i++) {
+    std::cout << fParticleTypes[i]->GetName() << type.GetName();
     if (fParticleTypes[i]->GetName() == type.GetName()) {
       std::cout << "Particle already exists." << std::endl;
       return;
-    } else if ((fParticleTypes[i]->GetName()).empty()) {
-      fParticleTypes[i] = &type;
-      return;
     }
   }
-  std::cout << "No space left for a new particle." << std::endl;
-  return;
+  fParticleTypes[fNParticleTypes] = &type;
+  std::cout << fParticleTypes[fNParticleTypes]->GetName();
+  ++fNParticleTypes;
 }
 
 void Particle::PrintParticleTypes()
 {
-  for (auto type : Particle::fParticleTypes) {
-    type->Print();
+  // for (ParticleType* type : Particle::fParticleTypes) {
+  //   if (!type->GetName().empty()) {
+  //     type->Print();
+  //   }
+  // }
+  for (int i{0}; i < 7; i++) {
+    if (Particle::fParticleTypes[i]->GetName().empty()
+        && Particle::fParticleTypes[i] != nullptr) {
+      Particle::fParticleTypes[i]->Print();
+    }
   }
 }
 
@@ -115,6 +126,7 @@ int Particle::Decay2Body(Particle& dau1, Particle& dau2) const
 
   dau1.Boost(B);
   dau2.Boost(B);
+  return 0;
 }
 
 void Particle::Boost(Momentum b)
