@@ -2,7 +2,7 @@
 #include <TRandom.h>
 
 #include "particle.hpp"
-
+#include <vector>
 void SetUp()
 {
   gRandom->SetSeed();
@@ -96,7 +96,22 @@ int main()
       Particle particle;
       particle.SetType(partName);
       particle.SetP(P);
-      EventParticles.push_back(particle);
+      if (partName == "K*") {
+        Particle dau1;
+        Particle dau2;
+        const double new_x{gRandom->Uniform()};
+        if (x < 0.5) {
+          dau1.SetType("pi+");
+          dau2.SetType("K-");
+        } else {
+          dau1.SetType("pi-");
+          dau2.SetType("K+");
+        }
+        particle.Decay2Body(dau1, dau2);
+        EventParticles.push_back(dau1);
+        EventParticles.push_back(dau2);
+      } else
+        EventParticles.push_back(particle);
     }
   }
   // Clean Exit
