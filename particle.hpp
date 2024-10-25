@@ -73,7 +73,7 @@ class Particle
   void Boost(Momentum b);
 
   // static functions
-  static void AddParticleType(ParticleType);
+  static void AddParticleType(ParticleType*);
   static void ClearParticleTypes();
 
   static void PrintParticleTypes();
