@@ -65,7 +65,7 @@ int main()
      });
    }
  */
-  const int numParticles{120};
+  const int numParticles{100};
   for (int event{0}; event < numEvents; ++event) {
     for (int Particles{0}; Particles < numParticles; ++Particles) {
       const double pAbs{gRandom->Exp(1.)};
