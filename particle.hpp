@@ -24,7 +24,7 @@ class Particle
   int fIndex;
   Momentum fP{};
 
-  int FindParticle(std::string);
+  static int FindParticle(std::string);
 
  public:
   Particle() = default;

@@ -2,7 +2,7 @@
 
 void SetUp()
 {
-  gRANDOM->SetSeed();
+  // gRANDOM->SetSeed();
   Particle::AddParticleType(new ParticleType("p+", 0.93827, 1));
   Particle::AddParticleType(new ParticleType("p-", 0.93827, -1));
   Particle::AddParticleType(new ParticleType("K+", 0.49367, 1));
