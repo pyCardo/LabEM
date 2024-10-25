@@ -20,16 +20,54 @@ int main()
   SetUp();
 
   // Particle::PrintParticleTypes();
-
+  std::vector<Particle> EventParticles;
   const int numEvents{100000};
+  /* const int numParticles{120};
+
+   std::array<Particle, numParticles> eventParticles;
+
+   for (int event{0}; event < numEvents; event++) {
+     eventParticles = {}; // clears array
+
+     std::generate(eventParticles.begin(), eventParticles.end(), [&]() {
+       const double pAbs{gRandom->Exp(1.)};
+       const double phi{gRandom->Uniform(0., TMath::TwoPi())};
+       const double theta{gRandom->Uniform(0., TMath::Pi())};
+
+       const Momentum P{pAbs * TMath::Sin(theta) * TMath::Cos(phi),
+                        pAbs * TMath::Sin(theta) * TMath::Sin(phi),
+                        pAbs * TMath::Cos(theta)};
+
+       const double x{gRandom->Uniform()};
+
+       std::string partName;
+       if (x < 0.4) {
+         partName = "pi+";
+       } else if (x < 0.8) {
+         partName = "pi-";
+       } else if (x < 0.85) {
+         partName = "K+";
+       } else if (x < 0.9) {
+         partName = "K-";
+       } else if (x < 0.945) {
+         partName = "p+";
+       } else if (x < 0.99) {
+         partName = "p-";
+       } else {
+         partName = "K*";
+       }
+
+       Particle particle;
+       particle.SetType(partName);
+       particle.SetP(P);
+
+       return particle;
+     });
+   }
+ */
   const int numParticles{120};
-
-  std::array<Particle, numParticles> eventParticles;
-
-  for (int event{0}; event < numEvents; event++) {
-    eventParticles = {}; // clears array
-
-    std::generate(eventParticles.begin(), eventParticles.end(), [&]() {
+  for (int event{0}; event < numEvents; ++event) {
+    for (int Particles{0}; Particles < numParticles; ++Particles) {
       const double pAbs{gRandom->Exp(1.)};
       const double phi{gRandom->Uniform(0., TMath::TwoPi())};
       const double theta{gRandom->Uniform(0., TMath::Pi())};
@@ -39,7 +77,6 @@ int main()
                        pAbs * TMath::Cos(theta)};
 
       const double x{gRandom->Uniform()};
-
       std::string partName;
       if (x < 0.4) {
         partName = "pi+";
@@ -56,15 +93,12 @@ int main()
       } else {
         partName = "K*";
       }
-
       Particle particle;
       particle.SetType(partName);
       particle.SetP(P);
-
-      return particle;
-    });
+      EventParticles.push_back(particle);
+    }
   }
-
   // Clean Exit
   Particle::ClearParticleTypes();
   return 0;
