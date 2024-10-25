@@ -29,18 +29,27 @@ void Particle::AddParticleType(ParticleType type)
     std::cout << "No space left for a new particle." << std::endl;
     return;
   }
+
+  // Controlla se il tipo di particella esiste già
   for (int i = 0; i < fNParticleTypes; i++) {
-    std::cout << fParticleTypes[i]->GetName() << type.GetName();
-    if (fParticleTypes[i]->GetName() == type.GetName()) {
+    if (fParticleTypes[i] && fParticleTypes[i]->GetName() == type.GetName()) {
       std::cout << "Particle already exists." << std::endl;
       return;
     }
   }
-  fParticleTypes[fNParticleTypes] = &type;
-  std::cout << fParticleTypes[fNParticleTypes]->GetName();
+
+  // Alloca una nuova copia dinamica di 'type' e aggiungila all'array
+  fParticleTypes[fNParticleTypes] = new ParticleType(type);
   ++fNParticleTypes;
 }
-
+void Particle::ClearParticleTypes()
+{
+  for (int i = 0; i < fNParticleTypes; ++i) {
+    delete fParticleTypes[i];
+    fParticleTypes[i] = nullptr;
+  }
+  fNParticleTypes = 0;
+}
 void Particle::PrintParticleTypes()
 {
   // for (ParticleType* type : Particle::fParticleTypes) {
@@ -49,8 +58,8 @@ void Particle::PrintParticleTypes()
   //   }
   // }
   for (int i{0}; i < 7; i++) {
-    if (Particle::fParticleTypes[i]->GetName().empty()
-        && Particle::fParticleTypes[i] != nullptr) {
+    if (Particle::fParticleTypes[i] != nullptr
+        && !Particle::fParticleTypes[i]->GetName().empty()) {
       Particle::fParticleTypes[i]->Print();
     }
   }

@@ -74,6 +74,7 @@ class Particle
 
   // static functions
   static void AddParticleType(ParticleType);
+  static void ClearParticleTypes();
 
   static void PrintParticleTypes();
 };
