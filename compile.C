@@ -1,7 +1,7 @@
 void compile()
 {
-  gROOT->LoadMacro("particleType.cpp++g");
-  gROOT->LoadMacro("resonanceType.cpp++g");
-  gROOT->LoadMacro("particle.cpp++g");
-  gROOT->LoadMacro("main.cpp++g");
+  gROOT->LoadMacro("particleType.cpp+");
+  gROOT->LoadMacro("resonanceType.cpp+");
+  gROOT->LoadMacro("particle.cpp+");
+  // gROOT->LoadMacro("main.cpp+");
 }

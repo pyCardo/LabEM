@@ -1,6 +1,8 @@
 #ifndef PARTICLE_HPP
 #define PARTICLE_HPP
 
+#include <algorithm>
+
 #include "resonanceType.hpp"
 
 struct Momentum
