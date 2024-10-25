@@ -2,7 +2,7 @@
 #include <TRandom.h>
 
 #include "particle.hpp"
-#include <vector>
+// #include <vector>
 void SetUp()
 {
   gRandom->SetSeed();
@@ -18,9 +18,9 @@ void SetUp()
 int main()
 {
   SetUp();
-
+  const int numParticles{100};
   // Particle::PrintParticleTypes();
-  std::vector<Particle> EventParticles;
+  std::array<Particle, 3 * numParticles> EventParticles;
   const int numEvents{100000};
   /* const int numParticles{120};
 
@@ -63,10 +63,11 @@ int main()
 
        return particle;
      });
-   }
- */
-  const int numParticles{100};
+   }*/
+
   for (int event{0}; event < numEvents; ++event) {
+    EventParticles.fill(Particle());
+    int number_of_K = 0;
     for (int Particles{0}; Particles < numParticles; ++Particles) {
       const double pAbs{gRandom->Exp(1.)};
       const double phi{gRandom->Uniform(0., TMath::TwoPi())};
@@ -96,11 +97,13 @@ int main()
       Particle particle;
       particle.SetType(partName);
       particle.SetP(P);
+
+      EventParticles[Particles] = (particle);
       if (partName == "K*") {
         Particle dau1;
         Particle dau2;
         const double new_x{gRandom->Uniform()};
-        if (x < 0.5) {
+        if (new_x < 0.5) {
           dau1.SetType("pi+");
           dau2.SetType("K-");
         } else {
@@ -108,10 +111,10 @@ int main()
           dau2.SetType("K+");
         }
         particle.Decay2Body(dau1, dau2);
-        EventParticles.push_back(dau1);
-        EventParticles.push_back(dau2);
-      } else
-        EventParticles.push_back(particle);
+        EventParticles[numParticles + 2 * number_of_K]     = (dau1);
+        EventParticles[numParticles + 2 * number_of_K + 1] = (dau2);
+        ++number_of_K;
+      }
     }
   }
   // Clean Exit
