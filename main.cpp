@@ -13,6 +13,8 @@ void SetUp()
   Particle::AddParticleType(new ParticleType("p+", 0.93827, 1));
   Particle::AddParticleType(new ParticleType("p-", 0.93827, -1));
   Particle::AddParticleType(new ResonanceType("K*", 0.89166, 0, 0.05));
+  // this way, ownership is implicitly transferred to the Particle class when
+  // AddParticleType is called
 }
 
 int main()

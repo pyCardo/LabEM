@@ -1,6 +1,5 @@
 #include "particle.hpp"
 
-#include <math.h>
 #include <random>
 
 int Particle::fNParticleTypes = 0;
@@ -15,31 +14,42 @@ Particle::Particle(std::string name, Momentum p)
 int Particle::FindParticle(std::string name)
 {
   for (int i = 0; i < fParticleTypes.size(); i++) {
-    if (fParticleTypes[i]->GetName() == name) {
+    if (fParticleTypes[i] && fParticleTypes[i]->GetName() == name) {
       return i;
-    }
+    } // is fParticleTypes[i] a meaningful request? isn't it always true?
+    /* fParticleTypes[i] evaluates to true if fParticleTypes[i] is not nullptr;
+     * thanks to short-circuit evaluation in &&, it's safe to dereference
+     * fParticleTypes[i] without risking a null pointer dereference */
   }
-  std::cout << "Particle not found." << std::endl;
-  return -1;
+  // std::cout << "Particle not found." << std::endl;
+  return -1; // standing for "not found"
 }
 
 void Particle::AddParticleType(ParticleType* type)
 {
-  if (fNParticleTypes == 7) {
+  if (fNParticleTypes == fParticleTypes.size()) {
     std::cout << "No space left for a new particle." << std::endl;
     return;
   }
 
-  // Controlla se il tipo di particella esiste già
-  for (int i = 0; i < fNParticleTypes; i++) {
-    if (fParticleTypes[i] && fParticleTypes[i]->GetName() == type->GetName()) {
-      std::cout << "Particle already exists." << std::endl;
-      return;
-    }
+  // Check if particle type already exists
+  if (Particle::FindParticle(type->GetName()) != -1) {
+    std::cout << "Particle already exists." << std::endl;
+    return;
   }
 
-  // Alloca una nuova copia dinamica di 'type' e aggiungila all'array
+  // for (int i = 0; i < fNParticleTypes; i++) {
+  //   if (fParticleTypes[i] && fParticleTypes[i]->GetName() == type->GetName())
+  //   {
+  //     std::cout << "Particle already exists." << std::endl;
+  //     return;
+  //   }
+  // }
+
+  // Allocate a new dynamic copy of 'type' and add it to fParticleTypes
   fParticleTypes[fNParticleTypes] = type;
+  // Ownership of type is transferred from caller to Particle; deallocation will
+  // be done by a static member function of Particle
   ++fNParticleTypes;
 }
 
@@ -57,8 +67,8 @@ void Particle::PrintParticleTypes()
   for (ParticleType* type : Particle::fParticleTypes) {
     if (type != nullptr) {
       type->Print();
+      std::cout << std::endl;
     }
-    std::cout << std::endl;
   }
 }
 
@@ -69,11 +79,6 @@ void Particle::PrintParticleData() const
   std::cout << "Particle Px: " << fP.x << '\n';
   std::cout << "Particle Py: " << fP.y << '\n';
   std::cout << "Particle Pz: " << fP.z << '\n';
-}
-
-double Particle::GetEnergy() const
-{
-  return std::sqrt(std::pow(GetMass(), 2) + fP.Norm2());
 }
 
 double Particle::InvMass(const Particle& particle) const
