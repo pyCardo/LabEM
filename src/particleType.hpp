@@ -5,8 +5,7 @@
 #include <iostream>
 #include <string>
 
-class ParticleType
-{
+class ParticleType {
  private:
   // attributes
   const std::string fName;
@@ -19,25 +18,13 @@ class ParticleType
   // virtual ~ParticleType() = default;
 
   // getters
-  const std::string GetName() const
-  {
-    return fName;
-  }
+  const std::string GetName() const { return fName; }
 
-  double GetMass() const
-  {
-    return fMass;
-  }
+  double GetMass() const { return fMass; }
 
-  int GetCharge() const
-  {
-    return fCharge;
-  }
+  int GetCharge() const { return fCharge; }
 
-  virtual double GetWidth() const
-  {
-    return 0;
-  }
+  virtual double GetWidth() const { return 0; }
 
   // output
   virtual void Print() const;

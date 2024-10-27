@@ -5,28 +5,24 @@
 int Particle::fNParticleTypes = 0;
 std::array<ParticleType*, 7> Particle::fParticleTypes;
 
-Particle::Particle(std::string name, Momentum p)
-    : fP{p}
-{
+Particle::Particle(std::string name, Momentum p) : fP{p} {
   int fIndex = FindParticle(name);
 }
 
-int Particle::FindParticle(std::string name)
-{
+int Particle::FindParticle(std::string name) {
   for (int i = 0; i < fParticleTypes.size(); i++) {
     if (fParticleTypes[i] && fParticleTypes[i]->GetName() == name) {
       return i;
-    } // is fParticleTypes[i] a meaningful request? isn't it always true?
+    }  // is fParticleTypes[i] a meaningful request? isn't it always true?
     /* fParticleTypes[i] evaluates to true if fParticleTypes[i] is not nullptr;
      * thanks to short-circuit evaluation in &&, it's safe to dereference
      * fParticleTypes[i] without risking a null pointer dereference */
   }
   // std::cout << "Particle not found." << std::endl;
-  return -1; // standing for "not found"
+  return -1;  // standing for "not found"
 }
 
-void Particle::AddParticleType(ParticleType* type)
-{
+void Particle::AddParticleType(ParticleType* type) {
   if (fNParticleTypes == fParticleTypes.size()) {
     std::cout << "No space left for a new particle." << std::endl;
     return;
@@ -53,8 +49,7 @@ void Particle::AddParticleType(ParticleType* type)
   ++fNParticleTypes;
 }
 
-void Particle::ClearParticleTypes()
-{
+void Particle::ClearParticleTypes() {
   for (int i = 0; i < fNParticleTypes; ++i) {
     delete fParticleTypes[i];
     fParticleTypes[i] = nullptr;
@@ -62,8 +57,7 @@ void Particle::ClearParticleTypes()
   fNParticleTypes = 0;
 }
 
-void Particle::PrintParticleTypes()
-{
+void Particle::PrintParticleTypes() {
   for (ParticleType* type : Particle::fParticleTypes) {
     if (type != nullptr) {
       type->Print();
@@ -72,8 +66,7 @@ void Particle::PrintParticleTypes()
   }
 }
 
-void Particle::PrintParticleData() const
-{
+void Particle::PrintParticleData() const {
   std::cout << "Particle index: " << fIndex << '\n';
   std::cout << "Particle name: " << fParticleTypes[fIndex]->GetName() << '\n';
   std::cout << "Particle Px: " << fP.x << '\n';
@@ -81,8 +74,7 @@ void Particle::PrintParticleData() const
   std::cout << "Particle Pz: " << fP.z << '\n';
 }
 
-double Particle::InvMass(const Particle& particle) const
-{
+double Particle::InvMass(const Particle& particle) const {
   const double sumEnergy{GetEnergy() + particle.GetEnergy()};
   const Momentum sumP{fP.x + particle.fP.x, fP.y + particle.fP.y,
                       fP.z + particle.fP.z};
@@ -90,14 +82,13 @@ double Particle::InvMass(const Particle& particle) const
   return std::sqrt(std::pow(sumEnergy, 2) - sumP.Norm2());
 }
 
-int Particle::Decay2Body(Particle& dau1, Particle& dau2) const
-{
+int Particle::Decay2Body(Particle& dau1, Particle& dau2) const {
   if (GetMass() == 0.) {
     printf("Decayment cannot be preformed if mass is zero\n");
     return 1;
   }
 
-  double massMot  = GetMass();
+  double massMot = GetMass();  // stands for mother
   double massDau1 = dau1.GetMass();
   double massDau2 = dau2.GetMass();
 
@@ -115,9 +106,9 @@ int Particle::Decay2Body(Particle& dau1, Particle& dau2) const
 
   const double pOut =
       sqrt(
-          (massMot * massMot - (massDau1 + massDau2) * (massDau1 + massDau2))
-          * (massMot * massMot - (massDau1 - massDau2) * (massDau1 - massDau2)))
-      / massMot * 0.5;
+          (massMot * massMot - (massDau1 + massDau2) * (massDau1 + massDau2)) *
+          (massMot * massMot - (massDau1 - massDau2) * (massDau1 - massDau2))) /
+      massMot * 0.5;
 
   std::uniform_real_distribution<double> phiDistr{0., M_PI * 2.};
   std::uniform_real_distribution<double> thetaDistr{-M_PI_2, M_PI_2};
@@ -140,14 +131,13 @@ int Particle::Decay2Body(Particle& dau1, Particle& dau2) const
   return 0;
 }
 
-void Particle::Boost(Momentum b)
-{
+void Particle::Boost(Momentum b) {
   double energy = GetEnergy();
 
   // Boost this Lorentz vector
-  double b2     = b.x * b.x + b.y * b.y + b.z * b.z;
-  double gamma  = 1.0 / sqrt(1.0 - b2);
-  double bp     = b.x * fP.x + b.y * fP.y + b.z * fP.z;
+  double b2 = b.x * b.x + b.y * b.y + b.z * b.z;
+  double gamma = 1.0 / sqrt(1.0 - b2);
+  double bp = b.x * fP.x + b.y * fP.y + b.z * fP.z;
   double gamma2 = b2 > 0 ? (gamma - 1.0) / b2 : 0.0;
 
   fP.x += gamma2 * bp * b.x + gamma * b.x * energy;

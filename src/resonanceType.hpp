@@ -3,18 +3,14 @@
 
 #include "particleType.hpp"
 
-class ResonanceType : public ParticleType
-{
+class ResonanceType : public ParticleType {
  private:
   const double fWidth;
 
  public:
   ResonanceType(std::string, double, int, double);
 
-  double GetWidth() const
-  {
-    return fWidth;
-  }
+  double GetWidth() const { return fWidth; }
 
   void Print() const;
 };

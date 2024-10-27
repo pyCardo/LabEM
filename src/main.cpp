@@ -3,8 +3,7 @@
 
 #include "particle.hpp"
 // #include <vector>
-void SetUp()
-{
+void SetUp() {
   gRandom->SetSeed();
   Particle::AddParticleType(new ParticleType("pi+", 0.13957, 1));
   Particle::AddParticleType(new ParticleType("pi-", 0.13957, -1));
@@ -17,8 +16,7 @@ void SetUp()
   // AddParticleType is called
 }
 
-int main()
-{
+int main() {
   SetUp();
   const int numParticles{100};
   // Particle::PrintParticleTypes();
@@ -113,7 +111,7 @@ int main()
           dau2.SetType("K+");
         }
         particle.Decay2Body(dau1, dau2);
-        EventParticles[numParticles + 2 * number_of_K]     = (dau1);
+        EventParticles[numParticles + 2 * number_of_K] = (dau1);
         EventParticles[numParticles + 2 * number_of_K + 1] = (dau2);
         ++number_of_K;
       }

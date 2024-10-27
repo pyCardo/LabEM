@@ -6,24 +6,19 @@
 
 #include "resonanceType.hpp"
 
-struct Momentum
-{
+struct Momentum {
   double x{0};
   double y{0};
   double z{0};
 
-  double Norm2() const
-  {
-    return x * x + y * y + z * z;
-  }
+  double Norm2() const { return x * x + y * y + z * z; }
 };
 
-class Particle
-{
+class Particle {
  private:
   // type-related members
-  static int fNParticleTypes; // number of types, counter
-  static std::array<ParticleType*, 7> fParticleTypes; // array of types
+  static int fNParticleTypes;  // number of types, counter
+  static std::array<ParticleType*, 7> fParticleTypes;  // array of types
   int fIndex;
 
   // kinematic-related members
@@ -39,45 +34,27 @@ class Particle
   Particle(std::string, Momentum);
 
   Particle()
-      : type("") // default constructor uses an empty string
-      , p{0, 0, 0} {};
+      : type("")  // default constructor uses an empty string
+        ,
+        p{0, 0, 0} {};
 
   // getters
-  int GetIndex() const
-  {
-    return fIndex;
-  }
+  int GetIndex() const { return fIndex; }
 
-  Momentum GetMomentum() const
-  {
-    return fP;
-  }
+  Momentum GetMomentum() const { return fP; }
 
-  double GetMass() const
-  {
-    return fParticleTypes[fIndex]->GetMass();
-  }
+  double GetMass() const { return fParticleTypes[fIndex]->GetMass(); }
 
-  double GetEnergy() const
-  {
+  double GetEnergy() const {
     return std::sqrt(std::pow(GetMass(), 2) + fP.Norm2());
   };
 
   // setters
-  void SetType(int index)
-  {
-    fIndex = index;
-  }
+  void SetType(int index) { fIndex = index; }
 
-  void SetType(std::string typeName)
-  {
-    fIndex = FindParticle(typeName);
-  }
+  void SetType(std::string typeName) { fIndex = FindParticle(typeName); }
 
-  void SetP(Momentum p)
-  {
-    fP = p;
-  }
+  void SetP(Momentum p) { fP = p; }
 
   double InvMass(const Particle& particle) const;
 
