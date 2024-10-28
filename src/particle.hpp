@@ -17,14 +17,16 @@ struct Momentum {
 class Particle {
  private:
   // type-related members
-  static int fNParticleTypes;  // number of types, counter
-  static std::array<ParticleType*, 7> fParticleTypes;  // array of types
-  int fIndex;
+  static constexpr std::size_t fMaxNumParticleType{7};
+  static std::size_t fNParticleTypes;  // number of types, counter
+  static std::array<ParticleType*, fMaxNumParticleType>
+      fParticleTypes;  // array of types
+  std::size_t fIndex;
 
   // kinematic-related members
   Momentum fP{};
 
-  static int FindParticle(std::string);
+  static std::size_t FindParticle(std::string);
 
  public:
   std::string type;
@@ -39,18 +41,18 @@ class Particle {
         p{0, 0, 0} {};
 
   // getters
-  int GetIndex() const { return fIndex; }
+  std::size_t GetIndex() const { return fIndex; }
 
   Momentum GetMomentum() const { return fP; }
 
   double GetMass() const { return fParticleTypes[fIndex]->GetMass(); }
 
-  double GetEnergy() const {
+  double Energy() const {
     return std::sqrt(std::pow(GetMass(), 2) + fP.Norm2());
   };
 
   // setters
-  void SetType(int index) { fIndex = index; }
+  void SetType(std::size_t index) { fIndex = index; }
 
   void SetType(std::string typeName) { fIndex = FindParticle(typeName); }
 

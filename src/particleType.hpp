@@ -7,15 +7,14 @@
 
 class ParticleType {
  private:
-  // attributes
   const std::string fName;
   const double fMass;
   const int fCharge;
 
  public:
-  // constructor
   ParticleType(std::string name, double mass, int charge);
-  // virtual ~ParticleType() = default;
+  virtual ~ParticleType() = default;
+  // warning: deleting object of polymorphic class type ‘ParticleType’ which has non-virtual destructor might cause undefined behavior [-Wdelete-non-virtual-dtor]
 
   // getters
   const std::string GetName() const { return fName; }

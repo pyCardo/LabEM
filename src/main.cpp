@@ -2,26 +2,33 @@
 #include <TRandom.h>
 
 #include "particle.hpp"
+
 // #include <vector>
+
 void SetUp() {
   gRandom->SetSeed();
-  Particle::AddParticleType(new ParticleType("pi+", 0.13957, 1));
-  Particle::AddParticleType(new ParticleType("pi-", 0.13957, -1));
-  Particle::AddParticleType(new ParticleType("K+", 0.49367, 1));
-  Particle::AddParticleType(new ParticleType("K-", 0.49367, -1));
-  Particle::AddParticleType(new ParticleType("p+", 0.93827, 1));
-  Particle::AddParticleType(new ParticleType("p-", 0.93827, -1));
-  Particle::AddParticleType(new ResonanceType("K*", 0.89166, 0, 0.05));
+
+  Particle::AddParticleType(new ParticleType("pi+", .13957, 1));
+  Particle::AddParticleType(new ParticleType("pi-", .13957, -1));
+  Particle::AddParticleType(new ParticleType("K+", .49367, 1));
+  Particle::AddParticleType(new ParticleType("K-", .49367, -1));
+  Particle::AddParticleType(new ParticleType("p+", .93827, 1));
+  Particle::AddParticleType(new ParticleType("p-", .93827, -1));
+  Particle::AddParticleType(new ResonanceType("K*", .89166, 0, .05));
   // this way, ownership is implicitly transferred to the Particle class when
   // AddParticleType is called
 }
 
 int main() {
   SetUp();
+
   const int numParticles{100};
-  // Particle::PrintParticleTypes();
-  std::array<Particle, 3 * numParticles> EventParticles;
   const int numEvents{100000};
+  // Particle::PrintParticleTypes();
+
+  std::array<Particle, 3 * numParticles> EventParticles;
+  // taking into account that each particle might decay
+
   /* const int numParticles{120};
 
    std::array<Particle, numParticles> eventParticles;
@@ -66,9 +73,12 @@ int main() {
    }*/
 
   for (int event{0}; event < numEvents; ++event) {
-    EventParticles.fill(Particle());
+
+    EventParticles.fill(Particle());  // default
     int number_of_K = 0;
-    for (int Particles{0}; Particles < numParticles; ++Particles) {
+
+    for (std::size_t i{0}; i < numParticles; ++i) {
+
       const double pAbs{gRandom->Exp(1.)};
       const double phi{gRandom->Uniform(0., TMath::TwoPi())};
       const double theta{gRandom->Uniform(0., TMath::Pi())};
@@ -77,8 +87,8 @@ int main() {
                        pAbs * TMath::Sin(theta) * TMath::Sin(phi),
                        pAbs * TMath::Cos(theta)};
 
-      const double x{gRandom->Uniform()};
       std::string partName;
+      const double x{gRandom->Uniform()};
       if (x < 0.4) {
         partName = "pi+";
       } else if (x < 0.8) {
@@ -93,15 +103,18 @@ int main() {
         partName = "p-";
       } else {
         partName = "K*";
-      }
+      }  // should this be done using indexes?
+
       Particle particle;
       particle.SetType(partName);
       particle.SetP(P);
 
-      EventParticles[Particles] = (particle);
+      EventParticles[i] = particle;
+
       if (partName == "K*") {
         Particle dau1;
         Particle dau2;
+
         const double new_x{gRandom->Uniform()};
         if (new_x < 0.5) {
           dau1.SetType("pi+");
@@ -110,14 +123,19 @@ int main() {
           dau1.SetType("pi-");
           dau2.SetType("K+");
         }
+
         particle.Decay2Body(dau1, dau2);
-        EventParticles[numParticles + 2 * number_of_K] = (dau1);
-        EventParticles[numParticles + 2 * number_of_K + 1] = (dau2);
+        EventParticles[static_cast<std::size_t>(numParticles +
+                                                2 * number_of_K)] = (dau1);
+        EventParticles[static_cast<std::size_t>(numParticles + 2 * number_of_K +
+                                                1)] = (dau2);
         ++number_of_K;
+        // each daughter is moved at the end of EventParticles
       }
     }
   }
   // Clean Exit
   Particle::ClearParticleTypes();
+
   return 0;
 }

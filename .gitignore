@@ -1,6 +1,12 @@
 # VSCode
 .vscode/
 
-# output
+# ROOT shared libraries
+*.d
+*.so
+*.pcm
+
+
+# Output
 *.out
 output/
