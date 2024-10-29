@@ -4,6 +4,7 @@
 #include <array>
 #include <iostream>
 #include <string>
+#include <vector>
 
 class ParticleType {
  private:

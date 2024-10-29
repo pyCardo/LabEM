@@ -101,29 +101,27 @@ int main() {
   constexpr std::size_t numEvents{100000};
   constexpr std::size_t numParticles{100};
 
-  std::array<Particle, 120> EventParticles;
+  std::vector<Particle> EventParticles;
+  EventParticles.reserve(numParticles);
   // taking into account that each particle might decay
 
   for (std::size_t event{0}; event < numEvents; ++event) {
 
-    EventParticles.fill(Particle());  // default
-    int number_of_K = 0;
+    EventParticles.clear();  // default
 
     for (std::size_t i{0}; i < numParticles; ++i) {
 
       const double phi{gRandom->Uniform(0., TMath::TwoPi())};
       const double theta{gRandom->Uniform(0., TMath::Pi())};
       const double pAbs{gRandom->Exp(1.)};
+      const Momentum P{pAbs * TMath::Sin(theta) * TMath::Cos(phi),
+                       pAbs * TMath::Sin(theta) * TMath::Sin(phi),
+                       pAbs * TMath::Cos(theta)};
 
       // Filling Histos
       hPhi->Fill(phi);
       hTheta->Fill(theta);
       hImpulse->Fill(pAbs);
-
-      const Momentum P{pAbs * TMath::Sin(theta) * TMath::Cos(phi),
-                       pAbs * TMath::Sin(theta) * TMath::Sin(phi),
-                       pAbs * TMath::Cos(theta)};
-
       hTransverseImpulse->Fill(std::sqrt(std::pow(P.x, 2) + std::pow(P.y, 2)));
 
       std::string partName;
@@ -153,10 +151,14 @@ int main() {
       hParticleTypes->Fill(static_cast<int>(particle.GetIndex()));
       hEnergy->Fill(particle.Energy());
 
-      EventParticles[i] = particle;
+      EventParticles.push_back(particle);
+    }
 
-      // Handle K* decays
-      if (partName == "K*") {
+    // this loop could be shortened by keeping track of the indexes containg a K*,
+    // but the impact on execution time would be minimal, since there is no
+    // access to histos, wich is by far the most expensive operation
+    for (const auto& p : EventParticles) {  // Handle K* decays
+      if (p.GetName() == "K*") {
         Particle dau1;
         Particle dau2;
 
@@ -169,13 +171,10 @@ int main() {
           dau2.SetType("K+");
         }
 
-        particle.Decay2Body(dau1, dau2);
+        p.Decay2Body(dau1, dau2);
 
-        EventParticles[static_cast<std::size_t>(numParticles +
-                                                2 * number_of_K)] = (dau1);
-        EventParticles[static_cast<std::size_t>(numParticles + 2 * number_of_K +
-                                                1)] = (dau2);
-        ++number_of_K;
+        EventParticles.push_back(dau1);
+        EventParticles.push_back(dau2);
         // each daughter is moved at the end of EventParticles
       }
     }
