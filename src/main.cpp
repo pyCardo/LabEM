@@ -101,7 +101,7 @@ int main() {
   constexpr std::size_t numEvents{100000};
   constexpr std::size_t numParticles{100};
 
-  std::array<Particle, 3 * numParticles> EventParticles;
+  std::array<Particle, 120> EventParticles;
   // taking into account that each particle might decay
 
   for (std::size_t event{0}; event < numEvents; ++event) {
