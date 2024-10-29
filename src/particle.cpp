@@ -7,6 +7,9 @@ std::array<ParticleType*, 7> Particle::fParticleTypes;
 
 Particle::Particle(std::string name, Momentum p) : fP{p} {
   fIndex = FindParticle(name);
+  if (static_cast<int>(fIndex) == -1) {
+    std::cout << "Particle not found." << std::endl;
+  }
 }
 
 std::size_t Particle::FindParticle(std::string name) {
@@ -18,7 +21,6 @@ std::size_t Particle::FindParticle(std::string name) {
      * thanks to short-circuit evaluation in &&, it's safe to dereference
      * fParticleTypes[i] without risking a null pointer dereference */
   }
-  std::cout << "Particle not found." << std::endl;
   return -1;  // standing for "not found"
 }
 

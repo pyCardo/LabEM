@@ -47,6 +47,10 @@ class Particle {
 
   double GetMass() const { return fParticleTypes[fIndex]->GetMass(); }
 
+  int GetCharge() const { return fParticleTypes[fIndex]->GetCharge(); }
+
+  std::string GetName() const { return fParticleTypes[fIndex]->GetName(); }
+
   double Energy() const {
     return std::sqrt(std::pow(GetMass(), 2) + fP.Norm2());
   };
