@@ -4,7 +4,7 @@
 void cInvMassDiscSign()
 {
 //=========Macro generated from canvas: cInvMassDiscSign/Invariant mass disc sign
-//=========  (Fri Nov  8 15:43:54 2024) by ROOT version 6.28/06
+//=========  (Thu Dec 12 13:32:13 2024) by ROOT version 6.28/06
    TCanvas *cInvMassDiscSign = new TCanvas("cInvMassDiscSign", "Invariant mass disc sign",0,0,800,600);
    gStyle->SetOptFit(1);
    cInvMassDiscSign->Range(-0.625,-259026.9,5.625,2331242);

@@ -4,7 +4,7 @@
 void cEnergy()
 {
 //=========Macro generated from canvas: cEnergy/Energy
-//=========  (Fri Nov  8 15:43:54 2024) by ROOT version 6.28/06
+//=========  (Thu Dec 12 13:32:13 2024) by ROOT version 6.28/06
    TCanvas *cEnergy = new TCanvas("cEnergy", "Energy",0,0,800,600);
    gStyle->SetOptFit(1);
    cEnergy->Range(-0.625,-44627.37,5.625,401646.3);

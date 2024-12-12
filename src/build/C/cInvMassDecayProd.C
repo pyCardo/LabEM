@@ -4,7 +4,7 @@
 void cInvMassDecayProd()
 {
 //=========Macro generated from canvas: cInvMassDecayProd/Invariant mass decay products
-//=========  (Fri Nov  8 15:43:54 2024) by ROOT version 6.28/06
+//=========  (Thu Dec 12 13:32:13 2024) by ROOT version 6.28/06
    TCanvas *cInvMassDecayProd = new TCanvas("cInvMassDecayProd", "Invariant mass decay products",0,0,800,600);
    gStyle->SetOptFit(1);
    cInvMassDecayProd->Range(0.275,-218.925,1.525,1970.325);

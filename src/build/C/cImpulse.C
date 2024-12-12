@@ -4,7 +4,7 @@
 void cImpulse()
 {
 //=========Macro generated from canvas: cImpulse/Impulse
-//=========  (Fri Nov  8 15:43:54 2024) by ROOT version 6.28/06
+//=========  (Thu Dec 12 13:32:13 2024) by ROOT version 6.28/06
    TCanvas *cImpulse = new TCanvas("cImpulse", "Impulse",0,0,800,600);
    gStyle->SetOptFit(1);
    cImpulse->Range(-0.625,-13061.27,5.625,117551.4);

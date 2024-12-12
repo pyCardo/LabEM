@@ -4,7 +4,7 @@
 void cInvMassSameSign()
 {
 //=========Macro generated from canvas: cInvMassSameSign/Invariant mass same sign
-//=========  (Fri Nov  8 15:43:54 2024) by ROOT version 6.28/06
+//=========  (Thu Dec 12 13:32:13 2024) by ROOT version 6.28/06
    TCanvas *cInvMassSameSign = new TCanvas("cInvMassSameSign", "Invariant mass same sign",0,0,800,600);
    gStyle->SetOptFit(1);
    cInvMassSameSign->Range(-0.625,-259122.8,5.625,2332105);

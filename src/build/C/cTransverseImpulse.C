@@ -4,7 +4,7 @@
 void cTransverseImpulse()
 {
 //=========Macro generated from canvas: cTransverseImpulse/Transverse impulse
-//=========  (Fri Nov  8 15:43:54 2024) by ROOT version 6.28/06
+//=========  (Thu Dec 12 13:32:13 2024) by ROOT version 6.28/06
    TCanvas *cTransverseImpulse = new TCanvas("cTransverseImpulse", "Transverse impulse",0,0,800,600);
    gStyle->SetOptFit(1);
    cTransverseImpulse->Range(-0.5,-144801.6,4.5,1303214);
